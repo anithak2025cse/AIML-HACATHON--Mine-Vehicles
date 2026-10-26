@@ -1,0 +1,30 @@
+/* Custom Glassmorphism & Industrial Aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+.glow-amber {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+.glow-emerald {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+}
+
+.glow-rose {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);
+}

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}Page 5: System Architecture & Technical Flowcharts{% endblock %}
+{% block header_title %}5. System Architecture & Technical Flowcharts{% endblock %}
+{% block header_subtitle %}High-fidelity visual blueprints and end-to-end data pipelines for haul truck safety in fog{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- Top Info Banner -->
+    <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-2xl flex-shrink-0">
+                <i class="fa-solid fa-compass-drafting"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-slate-100">Engineering Diagrams & Architecture Blueprints</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Vector-rendered at 300 DPI ultra-HD resolution matching academic and industrial publication standards.</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="{{ url_for('static', filename='images/diagram1_mine_vehicle_pipeline.png') }}" download="diagram1_mine_vehicle_pipeline.png" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-2">
+                <i class="fa-solid fa-download text-amber-400"></i> Diagram 1 (PNG)
+            </a>
+            <a href="{{ url_for('static', filename='images/diagram2_mine_system_architecture.png') }}" download="diagram2_mine_system_architecture.png" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-2">
+                <i class="fa-solid fa-download text-cyan-400"></i> Diagram 2 (PNG)
+            </a>
+        </div>
+    </div>
+
+    <!-- Diagram 1: Pipeline Flowchart -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+        <div class="px-6 py-4 bg-slate-850 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+                <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider mr-2">Diagram 1</span>
+                <span class="text-sm font-bold text-slate-100">End-to-End Machine Learning Pipeline & Physics Twin Flowchart</span>
+                <p class="text-xs text-slate-400 mt-0.5">Sequential 8-step pipeline from synthetic sensor ingestion to live reactive edge telemetry</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="openModal('{{ url_for('static', filename='images/diagram1_mine_vehicle_pipeline.png') }}', 'End-to-End Machine Learning Pipeline')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-xs font-medium text-amber-400 border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-expand"></i> Fullscreen
+                </button>
+                <a href="{{ url_for('static', filename='images/diagram1_mine_vehicle_pipeline.png') }}" download class="px-3 py-1.5 rounded bg-amber-500 hover:bg-amber-600 text-xs font-bold text-slate-950 flex items-center gap-1.5">
+                    <i class="fa-solid fa-download"></i> Save HD
+                </a>
+            </div>
+        </div>
+
+        <div class="p-6 bg-slate-950/60">
+            <div class="relative group cursor-pointer overflow-hidden rounded-lg border border-slate-800 bg-white" onclick="openModal('{{ url_for('static', filename='images/diagram1_mine_vehicle_pipeline.png') }}', 'End-to-End Machine Learning Pipeline')">
+                <img src="{{ url_for('static', filename='images/diagram1_mine_vehicle_pipeline.png') }}" alt="End-to-End Machine Learning Pipeline Flowchart" class="w-full object-contain max-h-[550px] mx-auto transition-transform duration-300 group-hover:scale-[1.01]" />
+                <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="px-4 py-2 rounded-lg bg-slate-900/90 text-amber-400 text-xs font-bold border border-slate-700 shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-plus text-sm"></i> Click to Zoom & Inspect 300 DPI Blueprint
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8-Stage Pipeline Breakdown -->
+        <div class="px-6 py-5 bg-slate-900/80 border-t border-slate-800">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3"><i class="fa-solid fa-list-check text-amber-400 mr-2"></i>8-Stage Processing Stages</h4>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-amber-400">1. Data Ingestion</span>
+                    <p class="text-slate-400 mt-1">5,000 synthetic haul truck records across 5 core telemetry dimensions (Fog, LiDAR, Speed, Incline, Radar).</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-amber-400">2. Physics Friction</span>
+                    <p class="text-slate-400 mt-1">Computes $\mu$ road friction degradation and safe stopping distance ($d_{safe} = v^2/2a_{eff} + v \cdot t_{react}$).</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-amber-400">3. Hazard Zoning</span>
+                    <p class="text-slate-400 mt-1">Unsupervised clustering segments 3 risk zones: Optimal (Green), Caution (Yellow), and Critical (Red).</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-amber-400">4. Scaling & Splitting</span>
+                    <p class="text-slate-400 mt-1">80/20 train/test split with zero-data-leakage standard scaling ($\mu=0, \sigma=1$).</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-cyan-400">5. Dual Baseline ML</span>
+                    <p class="text-slate-400 mt-1">Multiple Linear Regression (Continuous Distance) + Logistic Regression (Binary Collision Risk).</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-cyan-400">6. Deep Learning ANN</span>
+                    <p class="text-slate-400 mt-1">Keras 4-layer sequential network with Dropout regularization to capture non-linear brake dynamics.</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-emerald-400">7. Evaluation & Recall</span>
+                    <p class="text-slate-400 mt-1">Prioritizes Safety Recall (94.8%) over raw accuracy to eliminate catastrophic false negatives.</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-emerald-400">8. Dispatch Sandbox</span>
+                    <p class="text-slate-400 mt-1">Real-time edge prediction, dynamic alert cards, and target speed remediation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: System Architecture Blueprint -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+        <div class="px-6 py-4 bg-slate-850 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+                <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 uppercase tracking-wider mr-2">Diagram 2</span>
+                <span class="text-sm font-bold text-slate-100">Blueprint System Architecture: Digital-Twin & Safety Telemetry Engine</span>
+                <p class="text-xs text-slate-400 mt-0.5">3-tier operational architecture with blueprint grid, tech stack tags, and dataflow connections</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="openModal('{{ url_for('static', filename='images/diagram2_mine_system_architecture.png') }}', 'Blueprint System Architecture')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-xs font-medium text-cyan-400 border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-expand"></i> Fullscreen
+                </button>
+                <a href="{{ url_for('static', filename='images/diagram2_mine_system_architecture.png') }}" download class="px-3 py-1.5 rounded bg-cyan-500 hover:bg-cyan-600 text-xs font-bold text-slate-950 flex items-center gap-1.5">
+                    <i class="fa-solid fa-download"></i> Save HD
+                </a>
+            </div>
+        </div>
+
+        <div class="p-6 bg-slate-950/60">
+            <div class="relative group cursor-pointer overflow-hidden rounded-lg border border-slate-800" onclick="openModal('{{ url_for('static', filename='images/diagram2_mine_system_architecture.png') }}', 'Blueprint System Architecture')">
+                <img src="{{ url_for('static', filename='images/diagram2_mine_system_architecture.png') }}" alt="Blueprint System Architecture" class="w-full object-contain max-h-[550px] mx-auto transition-transform duration-300 group-hover:scale-[1.01]" />
+                <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="px-4 py-2 rounded-lg bg-slate-900/90 text-cyan-400 text-xs font-bold border border-slate-700 shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-plus text-sm"></i> Click to Zoom & Inspect 300 DPI Blueprint
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3-Tier Architecture Highlights -->
+        <div class="px-6 py-5 bg-slate-900/80 border-t border-slate-800">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3"><i class="fa-solid fa-layer-group text-cyan-400 mr-2"></i>Three-Tier Architectural Decomposition</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <div class="bg-slate-950 p-4 rounded-lg border border-blue-500/20">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                        <h5 class="font-bold text-blue-400 uppercase tracking-wide">1. Multi-Sensor Data Tier</h5>
+                    </div>
+                    <p class="text-slate-400">Captures edge telemetry via optical transmissometers, 3D LiDAR scanners, velocity odometry, inclinometers, and front-facing radar. Coupled to the Newtonian friction and stopping distance physics digital-twin.</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-lg border border-emerald-500/20">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                        <h5 class="font-bold text-emerald-400 uppercase tracking-wide">2. AI & Deep Learning Tier</h5>
+                    </div>
+                    <p class="text-slate-400">Executes unsupervised Agglomerative/K-Means hazard clustering, dual linear/logistic baseline regression, and the deep Keras/TensorFlow multi-layer perceptron with Adam optimization for high-recall safety inference.</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-lg border border-purple-500/20">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                        <h5 class="font-bold text-purple-400 uppercase tracking-wide">3. Edge Web & Dispatch Tier</h5>
+                    </div>
+                    <p class="text-slate-400">Production Flask backend with sub-10ms REST inference (`/api/predict`), responsive dark industrial Tailwind UI, interactive 3D WebGL charts, and real-time collision micro-braking warning triggers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Fullscreen Image Modal -->
+<div id="imageModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex flex-col justify-center items-center p-4">
+    <div class="w-full max-w-7xl flex items-center justify-between py-2 text-slate-200">
+        <h3 id="modalTitle" class="text-sm font-bold text-amber-400">Diagram Preview</h3>
+        <button onclick="closeModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 flex items-center gap-2">
+            <i class="fa-solid fa-xmark"></i> Close [ESC]
+        </button>
+    </div>
+    <div class="relative w-full max-w-7xl max-h-[85vh] overflow-auto flex items-center justify-center p-2 rounded-xl bg-slate-900 border border-slate-800">
+        <img id="modalImg" src="" alt="Full view" class="max-w-full max-h-[80vh] object-contain rounded" />
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function openModal(imgSrc, title) {
+        document.getElementById('modalImg').src = imgSrc;
+        document.getElementById('modalTitle').textContent = title + " (300 DPI Ultra-HD)";
+        document.getElementById('imageModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
+{% endblock %}

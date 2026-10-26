@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Page 3: Model Benchmarking & DL Training{% endblock %}
+{% block header_title %}3. Supervised Model Benchmarking & Deep Learning Training{% endblock %}
+{% block header_subtitle %}Comparative evaluation of Linear Regression, Logistic Regression, and Keras Sequential ANN{% endblock %}
+
+{% block content %}
+<!-- Safety Metric Warning Banner -->
+<div class="bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-md flex items-start space-x-3">
+    <div class="text-amber-500 text-xl font-black mt-0.5"><i class="fa-solid fa-shield-cat"></i></div>
+    <div>
+        <h4 class="text-sm font-extrabold text-amber-400 uppercase tracking-wider">Primary Mining Safety Directives: RECALL Focus</h4>
+        <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">
+            In heavy haul truck operations, <strong class="text-amber-400">Recall is the primary safety metric</strong>. A False Negative (model predicts "Safe" when a collision trajectory exists in blinding fog) causes catastrophic collisions. The Keras ANN architecture optimizes Recall to prevent false negatives.
+        </p>
+    </div>
+</div>
+
+<!-- Regression Performance Metric Box -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+    <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-slate-100 uppercase tracking-wider"><i class="fa-solid fa-chart-bar text-cyan-400 mr-2"></i>Multiple Linear Regression Baseline (Safe Stopping Distance Target)</h3>
+        <span class="text-xs text-cyan-400 font-semibold bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Continuous Predictor</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400 font-medium">MAE (Mean Absolute Error)</span>
+            <h4 class="text-2xl font-black text-slate-100 mt-1">{{ lin_metrics.mae|round(2) }} <span class="text-xs font-normal text-slate-400">meters</span></h4>
+        </div>
+        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400 font-medium">RMSE (Root Mean Squared Error)</span>
+            <h4 class="text-2xl font-black text-slate-100 mt-1">{{ lin_metrics.rmse|round(2) }} <span class="text-xs font-normal text-slate-400">meters</span></h4>
+        </div>
+        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400 font-medium">R² Score (Goodness of Fit)</span>
+            <h4 class="text-2xl font-black text-cyan-400 mt-1">{{ lin_metrics.r2|round(3) }}</h4>
+        </div>
+    </div>
+</div>
+
+<!-- Classification Comparison Table Box -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+    <h3 class="text-base font-bold text-slate-100 mb-3"><i class="fa-solid fa-scale-balanced text-amber-500 mr-2"></i>Collision Risk Classification Comparison (Logistic Reg vs Keras ANN)</h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950 text-slate-400 uppercase font-bold text-[11px] border-b border-slate-800">
+                <tr>
+                    <th class="py-3.5 px-4">Model Architecture</th>
+                    <th class="py-3.5 px-4 text-center">Accuracy</th>
+                    <th class="py-3.5 px-4 text-center">Precision</th>
+                    <th class="py-3.5 px-4 text-center text-amber-400 font-black">RECALL (Safety Priority)</th>
+                    <th class="py-3.5 px-4 text-center">F1-Score</th>
+                    <th class="py-3.5 px-4 text-center">Safety Rating</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                <tr class="hover:bg-slate-800/40">
+                    <td class="py-4 px-4 font-bold text-slate-200">
+                        <i class="fa-solid fa-square-minus text-slate-400 mr-2"></i>Logistic Regression Baseline
+                    </td>
+                    <td class="py-4 px-4 text-center font-bold text-slate-100">{{ (log_metrics.accuracy * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-bold text-slate-100">{{ (log_metrics.precision * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-extrabold text-amber-400 text-sm">{{ (log_metrics.recall * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-bold text-slate-100">{{ (log_metrics.f1 * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center"><span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 font-semibold text-[11px]">Baseline</span></td>
+                </tr>
+
+                <tr class="hover:bg-slate-800/40 bg-emerald-500/5 border-l-4 border-l-emerald-500">
+                    <td class="py-4 px-4 font-bold text-emerald-400 flex items-center">
+                        <i class="fa-solid fa-microchip text-emerald-400 mr-2"></i>Keras Sequential ANN (15 Epochs)
+                    </td>
+                    <td class="py-4 px-4 text-center font-bold text-emerald-400 text-sm">{{ (ann_metrics.accuracy * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-bold text-emerald-400 text-sm">{{ (ann_metrics.precision * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-black text-amber-400 text-base">{{ (ann_metrics.recall * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center font-bold text-emerald-400 text-sm">{{ (ann_metrics.f1 * 100)|round(1) }}%</td>
+                    <td class="py-4 px-4 text-center"><span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-extrabold text-[11px] border border-emerald-500/30">OPTIMAL SAFETY</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Keras ANN Loss Convergence Chart -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+    <div class="flex justify-between items-center mb-2">
+        <h3 class="text-base font-bold text-slate-100"><i class="fa-solid fa-wave-square text-amber-500 mr-2"></i>Keras ANN Training vs Validation Loss Curve</h3>
+        <span class="text-xs text-slate-400 font-medium">15 Epochs | Binary Cross-Entropy Loss</span>
+    </div>
+    <div id="lossChart" class="w-full h-[380px]"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const historyData = {{ history_json|safe }};
+    const epochs = historyData.map(h => h.epoch);
+    const loss = historyData.map(h => h.loss);
+    const valLoss = historyData.map(h => h.val_loss);
+
+    const traceTrain = {
+        x: epochs,
+        y: loss,
+        mode: 'lines+markers',
+        name: 'Training Loss',
+        line: { color: '#ef4444', width: 3 }
+    };
+
+    const traceVal = {
+        x: epochs,
+        y: valLoss,
+        mode: 'lines+markers',
+        name: 'Validation Loss',
+        line: { color: '#f59e0b', width: 3, dash: 'dash' }
+    };
+
+    const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(15, 23, 42, 0.6)',
+        font: { color: '#94a3b8' },
+        xaxis: { title: 'Training Epochs', gridcolor: '#1e293b' },
+        yaxis: { title: 'Loss Score (Binary Cross-Entropy)', gridcolor: '#1e293b' },
+        legend: { x: 0.8, y: 0.95, bgcolor: '#0f172a', bordercolor: '#334155', borderwidth: 1 },
+        margin: { l: 50, r: 30, t: 20, b: 50 }
+    };
+
+    Plotly.newPlot('lossChart', [traceTrain, traceVal], layout, {responsive: true});
+</script>
+{% endblock %}

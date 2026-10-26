@@ -1,0 +1,29 @@
+{
+    "0": {
+        "name": "Optimal Zone (Low Fog, High Visibility)",
+        "mean_fog": 22.221074730354392,
+        "mean_lidar": 183.2081432973806,
+        "mean_incline": -1.3237750385208011,
+        "mean_friction": 0.6511429121725731,
+        "mean_stopping_dist": 20.670986132511555,
+        "mean_collision_risk": 0.08782742681047766
+    },
+    "1": {
+        "name": "Caution Zone (Moderate Fog, Restricted Vision)",
+        "mean_fog": 69.18018166804293,
+        "mean_lidar": 91.89455821635012,
+        "mean_incline": 4.310536746490504,
+        "mean_friction": 0.4633166804293972,
+        "mean_stopping_dist": 19.07382328654005,
+        "mean_collision_risk": 0.08133773740710157
+    },
+    "2": {
+        "name": "Critical Zone (Heavy Fog, Severe Hazard)",
+        "mean_fog": 74.36042769857434,
+        "mean_lidar": 83.44420570264766,
+        "mean_incline": -7.988075356415479,
+        "mean_friction": 0.43961914460285134,
+        "mean_stopping_dist": 24.45652749490835,
+        "mean_collision_risk": 0.09979633401221996
+    }
+}

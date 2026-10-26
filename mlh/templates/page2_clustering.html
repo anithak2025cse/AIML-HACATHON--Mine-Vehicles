@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Page 2: Hazard Zoning (Unsupervised Clustering){% endblock %}
+{% block header_title %}2. Unsupervised Environmental Hazard Zoning{% endblock %}
+{% block header_subtitle %}KMeans / Agglomerative Clustering ($n_{clusters}=3$) on scaled atmospheric telemetry{% endblock %}
+
+{% block content %}
+<!-- Cluster Profile Cards Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    {% for cid, prof in cluster_mapping.items() %}
+    {% set stats = cluster_profiles[cid] %}
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg relative overflow-hidden" style="border-top: 4px solid {{ prof.color }};">
+        <div class="flex items-center justify-between mb-3">
+            <h3 class="font-extrabold text-base text-slate-100">{{ prof.name }}</h3>
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold" style="background-color: {{ prof.color }}20; color: {{ prof.color }};">
+                Cluster {{ cid }}
+            </span>
+        </div>
+        <p class="text-xs text-slate-400 mb-4 font-medium">{{ prof.desc }}</p>
+        
+        <div class="space-y-2 border-t border-slate-800/80 pt-3 text-xs">
+            <div class="flex justify-between text-slate-300">
+                <span class="text-slate-500">Mean Fog Density:</span>
+                <span class="font-bold text-slate-200">{{ stats.Fog_Density }}%</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+                <span class="text-slate-500">Mean LiDAR Range:</span>
+                <span class="font-bold text-slate-200">{{ stats.LiDAR_Range }}m</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+                <span class="text-slate-500">Mean Ramp Incline:</span>
+                <span class="font-bold text-slate-200">{{ stats.Ramp_Incline }}°</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+                <span class="text-slate-500">Mean Surface Friction ($\mu$):</span>
+                <span class="font-bold text-amber-400">{{ stats.Friction_Mu }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Plotly Visualizations Box -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- 3D Scatter Plot -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+        <h3 class="text-base font-bold text-slate-100 mb-1"><i class="fa-solid fa-cube text-amber-500 mr-2"></i>3D Environmental Cluster Space</h3>
+        <p class="text-xs text-slate-400 mb-3">X: Fog Density (%) | Y: LiDAR Range (m) | Z: Ramp Incline (°)</p>
+        <div id="chart3D" class="w-full h-[400px]"></div>
+    </div>
+
+    <!-- 2D Fog vs LiDAR Range Scatter Plot -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+        <h3 class="text-base font-bold text-slate-100 mb-1"><i class="fa-solid fa-diagram-project text-cyan-400 mr-2"></i>2D Hazard Zone Map</h3>
+        <p class="text-xs text-slate-400 mb-3">Fog Density vs. LiDAR Range Vision Attenuation</p>
+        <div id="chart2D" class="w-full h-[400px]"></div>
+    </div>
+</div>
+
+<!-- Detailed Data Profiling Table -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+    <h3 class="text-base font-bold text-slate-100 mb-3"><i class="fa-solid fa-table-cells text-emerald-400 mr-2"></i>Cluster Profiling Summary Matrix</h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950 text-slate-400 uppercase font-bold text-[11px] border-b border-slate-800">
+                <tr>
+                    <th class="py-3 px-4">Hazard Zone Profile</th>
+                    <th class="py-3 px-4 text-center">Avg Fog (%)</th>
+                    <th class="py-3 px-4 text-center">Avg LiDAR (m)</th>
+                    <th class="py-3 px-4 text-center">Avg Incline (°)</th>
+                    <th class="py-3 px-4 text-center">Avg Friction ($\mu$)</th>
+                    <th class="py-3 px-4 text-center">Avg Stopping Dist (m)</th>
+                    <th class="py-3 px-4 text-center">Collision Risk Rate</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                {% for cid, prof in cluster_mapping.items() %}
+                {% set stats = cluster_profiles[cid] %}
+                <tr class="hover:bg-slate-800/40">
+                    <td class="py-3.5 px-4 font-bold text-slate-100 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: {{ prof.color }};"></span>
+                        {{ prof.name }} (Cluster {{ cid }})
+                    </td>
+                    <td class="py-3.5 px-4 text-center font-semibold text-slate-200">{{ stats.Fog_Density }}%</td>
+                    <td class="py-3.5 px-4 text-center font-semibold text-slate-200">{{ stats.LiDAR_Range }}m</td>
+                    <td class="py-3.5 px-4 text-center font-semibold text-slate-200">{{ stats.Ramp_Incline }}°</td>
+                    <td class="py-3.5 px-4 text-center font-bold text-amber-400">{{ stats.Friction_Mu }}</td>
+                    <td class="py-3.5 px-4 text-center font-bold text-cyan-400">{{ stats.Safe_Stopping_Distance }}m</td>
+                    <td class="py-3.5 px-4 text-center font-extrabold" style="color: {{ prof.color }};">{{ (stats.Collision_Risk * 100)|round(1) }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const scatterData = {{ scatter_3d_data|safe }};
+    const clusterColors = { 0: '#10b981', 1: '#f59e0b', 2: '#ef4444' };
+    const clusterNames = { 0: 'Optimal Zone', 1: 'Caution Zone', 2: 'Critical Zone' };
+
+    // 3D Scatter Plot
+    const trace3D = {
+        x: scatterData.map(d => d.Fog_Density),
+        y: scatterData.map(d => d.LiDAR_Range),
+        z: scatterData.map(d => d.Ramp_Incline),
+        mode: 'markers',
+        type: 'scatter3d',
+        marker: {
+            size: 4,
+            color: scatterData.map(d => clusterColors[d.Hazard_Cluster]),
+            opacity: 0.8
+        }
+    };
+
+    const layout3D = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#94a3b8' },
+        scene: {
+            xaxis: { title: 'Fog (%)', gridcolor: '#1e293b' },
+            yaxis: { title: 'LiDAR (m)', gridcolor: '#1e293b' },
+            zaxis: { title: 'Incline (°)', gridcolor: '#1e293b' },
+            camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
+        },
+        margin: { l: 0, r: 0, t: 0, b: 0 }
+    };
+    Plotly.newPlot('chart3D', [trace3D], layout3D, {responsive: true});
+
+    // 2D Scatter Plot
+    const trace2D = {
+        x: scatterData.map(d => d.Fog_Density),
+        y: scatterData.map(d => d.LiDAR_Range),
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 7,
+            color: scatterData.map(d => clusterColors[d.Hazard_Cluster]),
+            opacity: 0.75
+        }
+    };
+
+    const layout2D = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(15, 23, 42, 0.6)',
+        font: { color: '#94a3b8' },
+        xaxis: { title: 'Fog Density (%)', gridcolor: '#1e293b' },
+        yaxis: { title: 'LiDAR Vision Range (Meters)', gridcolor: '#1e293b' },
+        margin: { l: 50, r: 30, t: 20, b: 50 }
+    };
+    Plotly.newPlot('chart2D', [trace2D], layout2D, {responsive: true});
+</script>
+{% endblock %}
